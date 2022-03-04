@@ -33,12 +33,12 @@ function App() {
       </header>
       <form onSubmit={handleSubmit} className="Group">
         <div className="form__group field">
-          <input value={userImput} type="text" placeholder="Enter task..." onChange={handleChange} className="form__field" autocomplete="off"/>
+          <input value={userImput} type="text" placeholder="Enter task..." onChange={handleChange} className="form__field" autoComplete="off"/>
         </div>
         <button className="Button" onClick={handleAddTask}>Submit</button>
       </form>
       <ul className="todo-list" >
-        {toDoList.map(item => (<div className="Item">{item}</div>))}
+        {toDoList.map(item => (<div className="Item" key={item}>{item}</div>))}
       </ul>
     </div>
   )
