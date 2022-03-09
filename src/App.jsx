@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import './App.css';
+import Image from './icons/checkbox.svg';
+import CorrectButton from './icons/correct-icon.svg';
+import WrongButton from './icons/wrong-icon.svg';
 
 function App() {
   const [userImput, setUserImput] = useState('');
@@ -27,9 +30,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>To-Do List</p>
+        <img src={Image} alt="logo" className="Image-header" />
+        <span className="Title-header">TO-DO LIST</span>
       </header>
-      <form onSubmit={handleSubmit} className="Group">
+      <div onSubmit={handleSubmit} className="Group">
         <div className="form__group field">
           <input
             value={userImput}
@@ -37,20 +41,25 @@ function App() {
             placeholder="Enter task..."
             onChange={handleChange}
             className="form__field"
-            autoComplete="off"
           />
         </div>
         <button className="Button" onClick={handleAddTask} type="button">
           Submit
         </button>
-      </form>
-      <ul className="todo-list">
+      </div>
+      <div className="todo-list">
         {toDoList.map((item) => (
-          <div className="Item" key={item}>
-            {item}
-          </div>
+          <span className="Task">
+            <div className="Item" key={item}>
+              {item}
+            </div>
+            <div className="Options">
+              <img src={CorrectButton} alt="logo" className="Correct-icon" />
+              <img src={WrongButton} alt="logo" className="Wrong-icon" />
+            </div>
+          </span>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
