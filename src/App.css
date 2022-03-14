@@ -3,8 +3,34 @@ body {
   align-items: center;
   min-height: 100vh;
   font-size: 1.5rem;
-  background-color:#2b2e43;
+  background: linear-gradient(
+    90deg,
+    rgba(48, 16, 190, 1) 0%,
+    rgba(100, 115, 190, 1) 100%
+  );
 }
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #8f54a0 #2b2e43;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 11px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #2b2e43;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #8f54a0;
+    border-radius: 11px;
+    border: 7px none #2b2e43;
+  }
 
 .App {
   text-align: center;
@@ -63,7 +89,7 @@ body {
   padding-bottom: 6px;  
   font-weight: 700;
   border-width: 3px;
-  border-image: linear-gradient(to right, #11998e,#38ef7d);
+  border-image: linear-gradient(to right, #d24f3e,#993c2f);
   border-image-slice: 1;
  }
 
@@ -95,8 +121,23 @@ body {
   display: flex;
 }
 
+.Task:hover .Options{
+  position: relative;
+  animation: mine 1s forwards;
+}
+
+@keyframes mine {
+  100%  {left: 0px; right: 50px;}
+}
+
 .Item {
-  background-color: #484c69;
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+  position: relative;
+  z-index: 1;
   color: white;
   margin: 10px;
   border-radius: 10px;
@@ -110,18 +151,55 @@ body {
 
 .Item:hover {
   cursor: pointer;
-  color: red;
 }
 
 .Options {
   display: flex;
+  position: relative;
+  left: -100px;
 }
+
 
 .Correct-icon {
   width: 20%;
   margin: 10px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: 0.5s;
+}
+
+.Correct-icon:hover {
+  opacity: 1;
 }
 
 .Wrong-icon {
   width: 16%;
+  cursor: pointer;
+  transition: 0.5s;
+  opacity: 0.5;
 }
+
+.Wrong-icon:hover {
+  opacity: 1;
+}
+
+.Button-clear {
+  position: fixed;
+  cursor: pointer;
+  bottom: 10px;
+  right: 700px;
+  left: 700px;
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  background-color: transparent;
+  margin: 0px;
+  transition: 0.5s;
+}
+
+.Button-clear:hover {
+  background-color: rgb(42, 231, 238);
+  color: black;
+}
+

@@ -27,6 +27,17 @@ function App() {
     setUserImput('');
   };
 
+  const handleClearOnce = (e) => {
+    const removedToDo = [...toDoList].filter((todo) => todo.e !== e);
+    setToDoList(removedToDo);
+  };
+
+  const handleClearAll = () => {
+    const removeAllToDo = [...toDoList];
+    removeAllToDo.splice(0, toDoList.length);
+    setToDoList(removeAllToDo);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -55,11 +66,14 @@ function App() {
             </div>
             <div className="Options">
               <img src={CorrectButton} alt="logo" className="Correct-icon" />
-              <img src={WrongButton} alt="logo" className="Wrong-icon" />
+              <img src={WrongButton} alt="logo" className="Wrong-icon" onClick={handleClearOnce} />
             </div>
           </span>
         ))}
       </div>
+      <button type="button" className="Button-clear" onClick={handleClearAll}>
+        Clear Tasks
+      </button>
     </div>
   );
 }
