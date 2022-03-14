@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './App.css';
 import Image from './icons/checkbox.svg';
 import CorrectButton from './icons/correct-icon.svg';
@@ -7,6 +7,7 @@ import WrongButton from './icons/wrong-icon.svg';
 function App() {
   const [userImput, setUserImput] = useState('');
   const [toDoList, setToDoList] = useState([]);
+  const item1 = useRef();
 
   const handleChange = (e) => {
     setUserImput(e.currentTarget.value);
@@ -27,15 +28,29 @@ function App() {
     setUserImput('');
   };
 
-  const handleClearOnce = (e) => {
-    const removedToDo = [...toDoList].filter((todo) => todo.e !== e);
-    setToDoList(removedToDo);
+  // make a handle that delete a item selected when click on the button using the id from span tag
+  const handleDelete = (e) => {
+    const index = e.currentTarget.id;
+    const newToDoList = [...toDoList];
+    newToDoList.splice(index);
+    setToDoList(newToDoList);
   };
 
   const handleClearAll = () => {
     const removeAllToDo = [...toDoList];
     removeAllToDo.splice(0, toDoList.length);
     setToDoList(removeAllToDo);
+  };
+
+  // make a handle that set a item done when clicked using id
+  const handleDone = (id) => {
+    const newToDoList = toDoList.map((item) => {
+      if (item === id) {
+        return { ...item, done: !item.done };
+      }
+      return item;
+    });
+    setToDoList(newToDoList);
   };
 
   return (
@@ -60,13 +75,13 @@ function App() {
       </div>
       <div className="todo-list">
         {toDoList.map((item) => (
-          <span className="Task">
-            <div className="Item" key={item}>
+          <span className="Task" id={toDoList.indexOf(item)}>
+            <div className="Item" key={item} ref={item1}>
               {item}
             </div>
             <div className="Options">
-              <img src={CorrectButton} alt="logo" className="Correct-icon" />
-              <img src={WrongButton} alt="logo" className="Wrong-icon" onClick={handleClearOnce} />
+              <img src={CorrectButton} alt="logo" className="Correct-icon" onClick={handleDone} />
+              <img src={WrongButton} alt="logo" className="Wrong-icon" onClick={handleDelete} />
             </div>
           </span>
         ))}
