@@ -137,6 +137,7 @@ body {
     rgba(155, 0, 250, 1) 100%
   );
   position: relative;
+  text-transform: capitalize;
   z-index: 1;
   color: white;
   margin: 10px;

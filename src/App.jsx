@@ -1,13 +1,21 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
+import { v4 } from 'uuid';
 import './App.css';
 import Image from './icons/checkbox.svg';
 import CorrectButton from './icons/correct-icon.svg';
 import WrongButton from './icons/wrong-icon.svg';
 
+function factoryTask(task) {
+  return {
+    id: v4(),
+    task,
+    isDone: false,
+  };
+}
+
 function App() {
   const [userImput, setUserImput] = useState('');
   const [toDoList, setToDoList] = useState([]);
-  const item1 = useRef();
 
   const handleChange = (e) => {
     setUserImput(e.currentTarget.value);
@@ -16,7 +24,7 @@ function App() {
   const handleAddTask = (e) => {
     e.preventDefault();
     if (userImput !== '') {
-      setToDoList([...toDoList, userImput]);
+      setToDoList([...toDoList, factoryTask(userImput)]);
       setUserImput('');
     }
   };
@@ -28,29 +36,16 @@ function App() {
     setUserImput('');
   };
 
-  // make a handle that delete a item selected when click on the button using the id from span tag
-  const handleDelete = (e) => {
-    const index = e.currentTarget.id;
-    const newToDoList = [...toDoList];
-    newToDoList.splice(index);
-    setToDoList(newToDoList);
+  const handleDelete = (id) => () => {
+    setToDoList(toDoList.filter((task) => task.id !== id));
   };
 
   const handleClearAll = () => {
-    const removeAllToDo = [...toDoList];
-    removeAllToDo.splice(0, toDoList.length);
-    setToDoList(removeAllToDo);
+    setToDoList([]);
   };
 
-  // make a handle that set a item done when clicked using id
   const handleDone = (id) => {
-    const newToDoList = toDoList.map((item) => {
-      if (item === id) {
-        return { ...item, done: !item.done };
-      }
-      return item;
-    });
-    setToDoList(newToDoList);
+    
   };
 
   return (
@@ -75,13 +70,18 @@ function App() {
       </div>
       <div className="todo-list">
         {toDoList.map((item) => (
-          <span className="Task" id={toDoList.indexOf(item)}>
-            <div className="Item" key={item} ref={item1}>
-              {item}
+          <span className="Task" id={item.id}>
+            <div className="Item" key={item.task}>
+              {item.task}
             </div>
             <div className="Options">
               <img src={CorrectButton} alt="logo" className="Correct-icon" onClick={handleDone} />
-              <img src={WrongButton} alt="logo" className="Wrong-icon" onClick={handleDelete} />
+              <img
+                src={WrongButton}
+                alt="logo"
+                className="Wrong-icon"
+                onClick={handleDelete(item.id)}
+              />
             </div>
           </span>
         ))}
