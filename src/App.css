@@ -150,6 +150,14 @@ body {
 
 }
 
+.Task-done {
+  background: linear-gradient(
+    90deg,
+    rgb(148, 148, 148) 0%,
+    rgb(58, 58, 58) 100%
+  );
+}
+
 .Item:hover {
   cursor: pointer;
 }
@@ -172,6 +180,7 @@ body {
 .Correct-icon:hover {
   opacity: 1;
 }
+
 
 .Wrong-icon {
   width: 16%;

@@ -16,6 +16,7 @@ function factoryTask(task) {
 function App() {
   const [userImput, setUserImput] = useState('');
   const [toDoList, setToDoList] = useState([]);
+  const [toggleColor, setToggleColor] = useState(false);
 
   const handleChange = (e) => {
     setUserImput(e.currentTarget.value);
@@ -44,8 +45,8 @@ function App() {
     setToDoList([]);
   };
 
-  const handleDone = (id) => {
-    
+  const toggleIt = () => {
+    setToggleColor(!toggleColor);
   };
 
   return (
@@ -75,7 +76,7 @@ function App() {
               {item.task}
             </div>
             <div className="Options">
-              <img src={CorrectButton} alt="logo" className="Correct-icon" onClick={handleDone} />
+              <img src={CorrectButton} alt="logo" className="Correct-icon" onClick={toggleIt} />
               <img
                 src={WrongButton}
                 alt="logo"
